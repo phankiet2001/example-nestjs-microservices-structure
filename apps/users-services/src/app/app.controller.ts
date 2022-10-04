@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import { EventPattern } from '@nestjs/microservices';
 
 import { AppService } from './app.service';
 
@@ -8,6 +9,11 @@ export class AppController {
 
   @Get()
   getData() {
-  return this.appService.getData();
+    return this.appService.getData();
+  }
+
+  @EventPattern('test-data')
+  ping(data: { email: string }) {
+    return this.appService.testData(data?.email);
   }
 }
